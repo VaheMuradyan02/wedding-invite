@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Հարսանեկան հրավեր</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --soft-white: #fffdfa;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            background-color: var(--soft-white);
+            color: #444;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+        }
+        /* Цветочный декор */
+        .floral-corner {
+            position: fixed;
+            width: 200px;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        .top-left { top: 0; left: 0; }
+        .bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
+
+        .container { padding: 60px 20px; max-width: 600px; margin: auto; }
+        
+        h1 { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 60px; 
+            color: var(--gold); 
+            margin-bottom: 10px; 
+        }
+
+        .couple {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 150px 150px 0 0;
+            border: 5px solid var(--gold);
+            margin: 30px 0;
+        }
+
+        #timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-weight: bold;
+            color: var(--gold);
+            margin: 30px 0;
+        }
+        .timer-item { font-size: 18px; line-height: 1; }
+        .timer-item span { display: block; font-size: 32px; }
+
+        .rsvp {
+            padding: 15px 40px;
+            font-size: 18px;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+    </style>
+</head>
+<body>
+
+<img src="https://img.freepik.com/free-vector/hand-painted-watercolor-floral-frame_23-2148940424.jpg?semt=ais_hybrid" class="floral-corner top-left">
+<img src="https://img.freepik.com/free-vector/hand-painted-watercolor-floral-frame_23-2148940424.jpg?semt=ais_hybrid" class="floral-corner bottom-right">
+
+<div class="overlay" id="overlay" onclick="startMusic()">
+    <div style="text-align: center;">
+        <h2 style="font-family: 'Great Vibes'; font-size: 40px;">Arsen & Ruzanna</h2>
+        <button class="rsvp">Բացել հրավերը</button>
+    </div>
+</div>
+
+<div class="container">
+    <p>Սիրով հրավիրում ենք Ձեզ</p>
+    <h1>Արսեն & Ռուզաննա</h1>
+    <p>մեր հարսանյաց հանդեսին</p>
+
+    <img class="couple" src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop" alt="Wedding">
+
+    <div class="date">04 Հուլիսի 2026 • 17:00</div>
+
+    <div id="timer">
+        <div class="timer-item"><span id="days">0</span>օր</div>
+        <div class="timer-item"><span id="hours">0</span>ժամ</div>
+        <div class="timer-item"><span id="minutes">0</span>րոպե</div>
+    </div>
+
+    <div class="location">
+        📍 Golden Palace Hall, Երևան
+    </div>
+    <br>
+    <button class="rsvp" onclick="window.open('https://forms.gle/ваш-код-формы')">
+        💌 Հաստատել մասնակցությունը
+    </button>
+</div>
+
+<audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+</audio>
+
+<script>
+    const weddingDate = new Date("July 4, 2026 17:00:00").getTime();
+    setInterval(function() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    }, 1000);
+
+    function startMusic() {
+        document.getElementById("music").play();
+        document.getElementById("overlay").style.display = "none";
+    }
+</script>
+</body>
+</html>
