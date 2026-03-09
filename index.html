@@ -3,136 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Հարսանեկան հրավեր</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <title>Հարսանեկան հրավեր - Արսեն և Ռուզաննա</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --gold: #d4af37;
-            --soft-white: #fffdfa;
+            --gold: #b5935b;
+            --bg-color: #fdfbf7;
+            --text-color: #4a4a4a;
         }
+
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             text-align: center;
-            background-color: var(--soft-white);
-            color: #444;
-            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            background: radial-gradient(circle, #ffffff 0%, #f4f1ea 100%);
+            color: var(--text-color);
+            overflow-x: hidden;
         }
-        /* Цветочный декор */
+
         .floral-corner {
             position: fixed;
-            width: 200px;
+            width: 300px;
             z-index: -1;
-            opacity: 0.6;
+            opacity: 0.3;
+            filter: sepia(30%);
+            pointer-events: none;
         }
-        .top-left { top: 0; left: 0; }
-        .bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
 
-        .container { padding: 60px 20px; max-width: 600px; margin: auto; }
-        
+        .top-left { top: -50px; left: -50px; }
+        .bottom-right { bottom: -50px; right: -50px; transform: rotate(180deg); }
+
+        .container { 
+            padding: 80px 20px; 
+            max-width: 500px; 
+            margin: auto; 
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         h1 { 
             font-family: 'Great Vibes', cursive; 
-            font-size: 60px; 
+            font-size: clamp(45px, 12vw, 70px); 
             color: var(--gold); 
-            margin-bottom: 10px; 
+            margin: 10px 0;
+            font-weight: 400;
+        }
+
+        .sub-text {
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 11px;
+            color: #8e8e8e;
+            margin-bottom: 20px;
+        }
+
+        .couple-frame {
+            position: relative;
+            display: inline-block;
+            margin: 40px 0;
         }
 
         .couple {
             width: 100%;
-            height: 400px;
+            max-width: 350px;
+            height: 450px;
             object-fit: cover;
-            border-radius: 150px 150px 0 0;
-            border: 5px solid var(--gold);
-            margin: 30px 0;
+            border-radius: 175px 175px 20px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
 
         #timer {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            font-weight: bold;
-            color: var(--gold);
-            margin: 30px 0;
+            gap: 25px;
+            margin: 40px 0;
         }
-        .timer-item { font-size: 18px; line-height: 1; }
-        .timer-item span { display: block; font-size: 32px; }
+
+        .timer-item { 
+            font-size: 13px; 
+            color: #8e8e8e;
+            text-transform: uppercase;
+        }
+
+        .timer-item span { 
+            display: block; 
+            font-size: 32px; 
+            color: var(--gold);
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+
+        .location-box {
+            border-top: 1px solid #e0dbd1;
+            border-bottom: 1px solid #e0dbd1;
+            padding: 25px 0;
+            margin: 30px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .location-box:hover {
+            background: rgba(181, 147, 91, 0.05);
+        }
+
+        .location-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
         .rsvp {
-            padding: 15px 40px;
-            font-size: 18px;
+            padding: 18px 45px;
+            font-size: 13px;
+            letter-spacing: 2px;
             background: var(--gold);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s;
+            box-shadow: 0 10px 20px rgba(181, 147, 91, 0.15);
+        }
+
+        .rsvp:hover {
+            background: #a3824d;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(181, 147, 91, 0.25);
         }
 
         .overlay {
             position: fixed;
             inset: 0;
-            background: white;
+            background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            transition: opacity 1.2s ease-out;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 3000;
+            inset: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 40px 20px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 85%;
+            text-align: center;
+            border: 1px solid var(--gold);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+
+        .close-modal {
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 11px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
-<img src="https://img.freepik.com/free-vector/hand-painted-watercolor-floral-frame_23-2148940424.jpg?semt=ais_hybrid" class="floral-corner top-left">
-<img src="https://img.freepik.com/free-vector/hand-painted-watercolor-floral-frame_23-2148940424.jpg?semt=ais_hybrid" class="floral-corner bottom-right">
+    <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3AtNDY0LW1hLTExMDExLTAxLWpvYjU4OC5qcGc.jpg" class="floral-corner top-left">
+    <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3AtNDY0LW1hLTExMDExLTAxLWpvYjU4OC5qcGc.jpg" class="floral-corner bottom-right">
 
-<div class="overlay" id="overlay" onclick="startMusic()">
-    <div style="text-align: center;">
-        <h2 style="font-family: 'Great Vibes'; font-size: 40px;">Arsen & Ruzanna</h2>
-        <button class="rsvp">Բացել հրավերը</button>
-    </div>
-</div>
-
-<div class="container">
-    <p>Սիրով հրավիրում ենք Ձեզ</p>
-    <h1>Արսեն & Ռուզաննա</h1>
-    <p>մեր հարսանյաց հանդեսին</p>
-
-    <img class="couple" src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop" alt="Wedding">
-
-    <div class="date">04 Հուլիսի 2026 • 17:00</div>
-
-    <div id="timer">
-        <div class="timer-item"><span id="days">0</span>օր</div>
-        <div class="timer-item"><span id="hours">0</span>ժամ</div>
-        <div class="timer-item"><span id="minutes">0</span>րոպե</div>
+    <div class="overlay" id="overlay">
+        <div style="text-align: center;">
+            <h2 style="font-family: 'Great Vibes'; font-size: 45px; color: #b5935b;">Arsen & Ruzanna</h2>
+            <p class="sub-text">Հրավիրատոմս</p>
+            <button class="rsvp" onclick="startMusic()">Բացել</button>
+        </div>
     </div>
 
-    <div class="location">
-        📍 Golden Palace Hall, Երևան
+    <div class="container">
+        <p class="sub-text">Սիրով հրավիրում ենք</p>
+        <h1>Արսեն & Ռուզաննա</h1>
+        <p style="font-style: italic; color: #777;">մեր հարսանյաց հանդեսին</p>
+
+        <div class="couple-frame">
+            <img class="couple" src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop" alt="Wedding">
+        </div>
+
+        <div style="font-size: 20px; font-weight: 400;">04 Հուլիսի 2026</div>
+        <div style="color: #b5935b; letter-spacing: 2px;">ՇԱԲԱԹ • 17:00</div>
+
+        <div id="timer">
+            <div class="timer-item"><span id="days">0</span>օր</div>
+            <div class="timer-item"><span id="hours">0</span>ժամ</div>
+            <div class="timer-item"><span id="minutes">0</span>րոպե</div>
+        </div>
+
+        <div class="location-box">
+            <a href="https://maps.app.goo.gl/9uE6eF9vM97jFvS26" target="_blank" class="location-link">
+                 📍 Lianna Garden Hall, Փարաքար
+                <br>
+                <small style="color: var(--gold); font-size: 10px;">(տեսնել քարտեզի վրա)</small>
+            </a>
+        </div>
+
+        <button class="rsvp" onclick="showThankYou()">
+            ՀԱՍՏԱՏԵԼ ՄԱՍՆԱԿՑՈՒԹՅՈՒՆԸ
+        </button>
     </div>
-    <br>
-    <button class="rsvp" onclick="window.open('https://forms.gle/ваш-код-формы')">
-        💌 Հաստատել մասնակցությունը
-    </button>
-</div>
 
-<audio id="music" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
-</audio>
+    <div id="thankYouModal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-family: 'Great Vibes'; font-size: 45px; color: var(--gold); margin-bottom: 10px;">Սիրով սպասում ենք</h2>
+            <p style="margin-bottom: 25px; color: #777; font-style: italic;">Ձեր մասնակցությունը մեզ համար շատ կարևոր է:</p>
+            <!--<button class="rsvp" onclick="window.open('https://forms.gle/your_google_form_link', '_blank')">ԼՐԱՑՆԵԼ ՀԱՐՑԱՇԱՐԸ</button>-->
+            <br>
+            <span class="close-modal" onclick="closeModal()">ՓԱԿԵԼ</span>
+        </div>
+    </div>
 
-<script>
-    const weddingDate = new Date("July 4, 2026 17:00:00").getTime();
-    setInterval(function() {
-        const now = new Date().getTime();
-        const distance = weddingDate - now;
-        document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-        document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    }, 1000);
+    <audio id="music" loop preload="auto">
+        <source src="https://www.mfiles.co.uk/mp3-downloads/pachelbel-canon-in-d.mp3" type="audio/mp3">
+    </audio>
 
-    function startMusic() {
-        document.getElementById("music").play();
-        document.getElementById("overlay").style.display = "none";
-    }
-</script>
+    <script>
+        // 1. Միացնում ենք երաժշտությունը և փակում overlay-ը
+        function startMusic() {
+            const audio = document.getElementById('music');
+            const overlay = document.getElementById('overlay');
+
+            if (audio) {
+                audio.currentTime = 105; // Սկսել 1:45-ից
+                audio.play().catch(error => {
+                    console.log("Playback failed: ", error);
+                });
+            }
+
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1200);
+        }
+
+        // 2. Շնորհակալական պատուհանի ֆունկցիաներ
+        function showThankYou() {
+            document.getElementById('thankYouModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('thankYouModal').style.display = 'none';
+        }
+
+        // 3. Հետհաշվարկի տրամաբանություն
+        function updateTimer() {
+            const weddingDate = new Date("July 4, 2026 17:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+            } else {
+                document.getElementById("timer").innerText = "ՕՐԸ ԵԿԱՎ";
+            }
+        }
+
+        // Կանչում ենք ֆունկցիան անմիջապես, որպեսզի 0-ները չմնան
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
 </body>
 </html>
