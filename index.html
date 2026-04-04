@@ -304,7 +304,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
             font-size: 14px;
             color: rgba(255,255,255,0.88);
             margin: 0 auto;
@@ -316,25 +315,33 @@
         }
 
         .calendar-day.marked {
-            background: var(--gold);
+            background: none;
+            box-shadow: none;
             color: #161616;
             font-weight: 600;
-            box-shadow: 0 8px 18px rgba(212, 176, 123, 0.35);
+        }
+
+        .heart-day {
+            width: 42px;
+            height: 38px;
+        }
+
+        .heart-day .heart-shape {
+            position: absolute;
+            inset: 0;
+            width: 42px;
+            height: 38px;
+            fill: var(--gold);
+            filter: drop-shadow(0 8px 18px rgba(212, 176, 123, 0.28));
         }
 
         .heart-day .day-number {
             position: relative;
             z-index: 2;
-        }
-
-        .heart-day .heart-mark {
-            position: absolute;
-            top: -7px;
-            right: -4px;
-            font-size: 11px;
-            line-height: 1;
-            color: #fff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.28);
+            color: #1b1b1b;
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 2px;
         }
 
         .rsvp {
@@ -565,10 +572,19 @@
                 font-size: 12px;
             }
 
-            .heart-day .heart-mark {
-                top: -6px;
-                right: -3px;
-                font-size: 10px;
+            .heart-day {
+                width: 36px;
+                height: 32px;
+            }
+
+            .heart-day .heart-shape {
+                width: 36px;
+                height: 32px;
+            }
+
+            .heart-day .day-number {
+                font-size: 13px;
+                margin-top: 1px;
             }
 
             .rsvp,
@@ -691,8 +707,16 @@
                         <div class="calendar-day">2</div>
                         <div class="calendar-day">3</div>
                         <div class="calendar-day marked heart-day">
+                            <svg class="heart-shape" viewBox="0 0 64 58" aria-hidden="true">
+                                <path d="M32 55
+                                         C28 51, 8 36, 8 21
+                                         C8 11, 15 5, 24 5
+                                         C30 5, 34 9, 32 13
+                                         C30 9, 34 5, 40 5
+                                         C49 5, 56 11, 56 21
+                                         C56 36, 36 51, 32 55Z"/>
+                            </svg>
                             <span class="day-number">4</span>
-                            <span class="heart-mark">♡</span>
                         </div>
                         <div class="calendar-day">5</div>
 
