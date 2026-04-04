@@ -39,7 +39,7 @@
             text-align: center;
             background-image:
                 linear-gradient(rgba(7, 7, 10, 0.48), rgba(7, 7, 10, 0.58)),
-                url("main-bg.png");
+                url("main-bg.jpg");
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -299,6 +299,7 @@
         }
 
         .calendar-day {
+            position: relative;
             height: 38px;
             display: flex;
             align-items: center;
@@ -319,6 +320,21 @@
             color: #161616;
             font-weight: 600;
             box-shadow: 0 8px 18px rgba(212, 176, 123, 0.35);
+        }
+
+        .heart-day .day-number {
+            position: relative;
+            z-index: 2;
+        }
+
+        .heart-day .heart-mark {
+            position: absolute;
+            top: -7px;
+            right: -4px;
+            font-size: 11px;
+            line-height: 1;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.28);
         }
 
         .rsvp {
@@ -549,6 +565,12 @@
                 font-size: 12px;
             }
 
+            .heart-day .heart-mark {
+                top: -6px;
+                right: -3px;
+                font-size: 10px;
+            }
+
             .rsvp,
             .action-btn {
                 padding: 14px 18px;
@@ -668,7 +690,10 @@
                         <div class="calendar-day">1</div>
                         <div class="calendar-day">2</div>
                         <div class="calendar-day">3</div>
-                        <div class="calendar-day marked">4</div>
+                        <div class="calendar-day marked heart-day">
+                            <span class="day-number">4</span>
+                            <span class="heart-mark">♡</span>
+                        </div>
                         <div class="calendar-day">5</div>
 
                         <div class="calendar-day">6</div>
