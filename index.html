@@ -104,7 +104,7 @@
 
         .overlay-title {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(42px, 10vw, 58px);
+            font-size: clamp(36px, 9vw, 48px);
             color: var(--gold);
             margin: 0 0 10px;
             font-weight: 400;
@@ -161,7 +161,8 @@
         }
 
         .date-text {
-            font-size: 21px;
+	    color: var(--gold);
+            font-size: 34px;
             font-weight: 400;
             margin-top: 10px;
         }
@@ -177,14 +178,13 @@
         .timer-item {
             min-width: 76px;
             font-size: 12px;
-            color: var(--muted);
+	    color: var(--muted);            
             text-transform: uppercase;
         }
 
         .timer-item span {
             display: block;
             font-size: 34px;
-            color: var(--gold);
             font-weight: 300;
             margin-bottom: 6px;
         }
@@ -401,28 +401,41 @@
         }
 
         .modal {
-            display: none;
-            position: fixed;
-            z-index: 3000;
-            inset: 0;
-            background-color: rgba(7, 7, 10, 0.72);
-            align-items: center;
-            justify-content: center;
-            padding: 14px;
-        }
+	    display: none;
+	    position: fixed;
+	    z-index: 3000;
+	    inset: 0;
+	    background-color: rgba(7, 7, 10, 0.56);
+	    backdrop-filter: blur(6px);
+	    -webkit-backdrop-filter: blur(6px);
+	    align-items: center;
+	    justify-content: center;
+	    padding: 14px;
+	}
 
-        .modal-content {
-            background: rgba(18, 18, 24, 0.92);
-            padding: 26px 18px;
-            border-radius: 22px;
-            max-width: 420px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            text-align: center;
-            border: 1px solid rgba(212, 176, 123, 0.45);
-            box-shadow: var(--shadow);
-        }
+	.modal-content {	    
+	    background: rgba(40, 40, 48, 0.50);
+	    padding: 26px 18px;
+	    border-radius: 22px;
+	    max-width: 420px;
+	    width: 100%;
+	    max-height: 90vh;
+	    overflow-y: auto;
+	    text-align: center;
+	    border: 1px solid rgba(212, 176, 123, 0.38);
+	    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+   	    backdrop-filter: blur(12px);
+    	    -webkit-backdrop-filter: blur(12px);
+	}
+
+	.conditional-fields {
+    	    display: none;
+    	    gap: 12px;
+	}
+
+	.conditional-fields.show {
+    	    display: grid;
+	}
 
         .modal-text {
             margin-bottom: 18px;
@@ -825,109 +838,136 @@
 
             <form id="rsvpForm" action="https://formspree.io/f/maqljkae" method="POST">
                 <div class="form-grid">
-                    <div class="field">
-                        <label for="fullName">Անուն Ազգանուն</label>
-                        <input
-                            id="fullName"
-                            name="full_name"
-                            type="text"
-                            placeholder="Օրինակ՝ Anna Mkrtchyan"
-                            required
-                            oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
-                            oninput="this.setCustomValidity('')"
-                        >
-                    </div>
+        <div class="field">
+            <label for="fullName">Անուն Ազգանուն</label>
+            <input
+                id="fullName"
+                name="full_name"
+                type="text"
+                placeholder="Օրինակ՝ Աննա Մկրտչյան"
+                required
+                oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
+                oninput="this.setCustomValidity('')"
+            >
+        </div>
 
-                    <div class="field">
-                        <label for="attendance">Մասնակցություն</label>
-                        <select
-                            id="attendance"
-                            name="attendance"
-                            required
-                            oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
-                            onchange="this.setCustomValidity('')"
-                        >
-                            <option value="">Ընտրել</option>
-                            <option value="Կմասնակցեմ">Կմասնակցեմ</option>
-                            <option value="Չեմ կարող մասնակցել">Չեմ կարող մասնակցել</option>
-                        </select>
-                    </div>
+        <div class="field">
+            <label for="attendance">Մասնակցություն</label>
+            <select
+                id="attendance"
+                name="attendance"
+                required
+                oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
+                onchange="this.setCustomValidity('')"
+            >
+                <option value="">Ընտրել</option>
+                <option value="Կմասնակցեմ">Կմասնակցեմ</option>
+                <option value="Չեմ կարող մասնակցել">Չեմ կարող մասնակցել</option>
+            </select>
+        </div>
 
-                    <div class="field">
-                        <label>Հեռախոս</label>
-                        <div class="phone-row">
-                            <select
-                                id="phoneCode"
-                                class="phone-code"
-                                required
-                                oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
-                                onchange="this.setCustomValidity('')"
-                            >
-                                <option value="">Կոդ</option>
+        <div id="conditionalFields" class="conditional-fields">
+            <div class="field">
+                <label for="guestCount">Քանակ</label>
+                <input
+                    id="guestCount"
+                    name="guest_count"
+                    type="text"
+                    inputmode="numeric"
+                    placeholder="Օրինակ՝ 2"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,''); this.setCustomValidity('')"
+                >
+            </div>
 
-                                <option value="+374">🇦🇲 Armenia +374</option>
-                                <option value="+7">🇷🇺 Russia +7</option>
-                                <option value="+380">🇺🇦 Ukraine +380</option>
-                                <option value="+995">🇬🇪 Georgia +995</option>
-                                <option value="+375">🇧🇾 Belarus +375</option>
+            <div class="field">
+                <label for="guestSide">Ո՞ւմ կողմից եք հրավիրված</label>
+                <select
+                    id="guestSide"
+                    name="guest_side"
+                    onchange="this.setCustomValidity('')"
+                >
+                    <option value="">Ընտրել</option>
+                    <option value="Արսեն">Արսեն</option>
+                    <option value="Ռուզաննա">Ռուզաննա</option>
+                </select>
+            </div>
+        </div>
 
-                                <option value="+33">🇫🇷 France +33</option>
-                                <option value="+49">🇩🇪 Germany +49</option>
-                                <option value="+39">🇮🇹 Italy +39</option>
-                                <option value="+34">🇪🇸 Spain +34</option>
-                                <option value="+44">🇬🇧 UK +44</option>
-                                <option value="+31">🇳🇱 Netherlands +31</option>
-                                <option value="+32">🇧🇪 Belgium +32</option>
-                                <option value="+41">🇨🇭 Switzerland +41</option>
-                                <option value="+43">🇦🇹 Austria +43</option>
-                                <option value="+46">🇸🇪 Sweden +46</option>
-                                <option value="+47">🇳🇴 Norway +47</option>
-                                <option value="+45">🇩🇰 Denmark +45</option>
+        <div class="field">
+            <label>Հեռախոս</label>
+            <div class="phone-row">
+                <select
+                    id="phoneCode"
+                    class="phone-code"
+                    required
+                    oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
+                    onchange="this.setCustomValidity('')"
+                >
+                    <option value="">Կոդ</option>
 
-                                <option value="+1">🇺🇸 USA +1</option>
-                                <option value="+1">🇨🇦 Canada +1</option>
-                                <option value="+52">🇲🇽 Mexico +52</option>
-                                <option value="+55">🇧🇷 Brazil +55</option>
-                                <option value="+54">🇦🇷 Argentina +54</option>
+                    <option value="+374">🇦🇲 Armenia +374</option>
+                    <option value="+7">🇷🇺 Russia +7</option>
+                    <option value="+380">🇺🇦 Ukraine +380</option>
+                    <option value="+995">🇬🇪 Georgia +995</option>
+                    <option value="+375">🇧🇾 Belarus +375</option>
 
-                                <option value="+971">🇦🇪 UAE +971</option>
-                                <option value="+98">🇮🇷 Iran +98</option>
-                                <option value="+91">🇮🇳 India +91</option>
-                                <option value="+86">🇨🇳 China +86</option>
-                                <option value="+81">🇯🇵 Japan +81</option>
-                                <option value="+82">🇰🇷 Korea +82</option>
+                    <option value="+33">🇫🇷 France +33</option>
+                    <option value="+49">🇩🇪 Germany +49</option>
+                    <option value="+39">🇮🇹 Italy +39</option>
+                    <option value="+34">🇪🇸 Spain +34</option>
+                    <option value="+44">🇬🇧 UK +44</option>
+                    <option value="+31">🇳🇱 Netherlands +31</option>
+                    <option value="+32">🇧🇪 Belgium +32</option>
+                    <option value="+41">🇨🇭 Switzerland +41</option>
+                    <option value="+43">🇦🇹 Austria +43</option>
+                    <option value="+46">🇸🇪 Sweden +46</option>
+                    <option value="+47">🇳🇴 Norway +47</option>
+                    <option value="+45">🇩🇰 Denmark +45</option>
 
-                                <option value="+61">🇦🇺 Australia +61</option>
-                                <option value="+64">🇳🇿 New Zealand +64</option>
-                                <option value="+27">🇿🇦 South Africa +27</option>
-                            </select>
+                    <option value="+1">🇺🇸 USA +1</option>
+                    <option value="+1">🇨🇦 Canada +1</option>
+                    <option value="+52">🇲🇽 Mexico +52</option>
+                    <option value="+55">🇧🇷 Brazil +55</option>
+                    <option value="+54">🇦🇷 Argentina +54</option>
 
-                            <input
-                                id="phoneNumber"
-                                class="phone-number"
-                                type="tel"
-                                placeholder="XXXXXXXX"
-                                required
-                                inputmode="numeric"
-                                oninput="this.value=this.value.replace(/[^0-9]/g,''); this.setCustomValidity('')"
-                                oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
-                            >
-                        </div>
-                        <input type="hidden" name="phone" id="fullPhone">
-                    </div>
+                    <option value="+971">🇦🇪 UAE +971</option>
+                    <option value="+98">🇮🇷 Iran +98</option>
+                    <option value="+91">🇮🇳 India +91</option>
+                    <option value="+86">🇨🇳 China +86</option>
+                    <option value="+81">🇯🇵 Japan +81</option>
+                    <option value="+82">🇰🇷 Korea +82</option>
 
-                    <div class="field">
-                        <label for="message">Մեկնաբանություն (ըստ ցանկության)</label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            placeholder="Ցանկության դեպքում կարող եք գրել հաղորդագրություն"
-                        ></textarea>
-                    </div>
-                </div>
+                    <option value="+61">🇦🇺 Australia +61</option>
+                    <option value="+64">🇳🇿 New Zealand +64</option>
+                    <option value="+27">🇿🇦 South Africa +27</option>
+                </select>
 
-                <button type="submit" class="rsvp submit-btn">Ուղարկել</button>
-                <div id="formStatus" class="form-status"></div>
+                <input
+                    id="phoneNumber"
+                    class="phone-number"
+                    type="tel"
+                    placeholder="XXXXXXXX"
+                    required
+                    inputmode="numeric"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,''); this.setCustomValidity('')"
+                    oninvalid="this.setCustomValidity('Խնդրում ենք լրացնել դաշտը')"
+                >
+            </div>
+            <input type="hidden" name="phone" id="fullPhone">
+        </div>
+
+        <div class="field">
+            <label for="message">Մեկնաբանություն (ըստ ցանկության)</label>
+            <textarea
+                id="message"
+                name="message"
+                placeholder="Ցանկության դեպքում կարող եք գրել հաղորդագրություն"
+            ></textarea>
+        </div>
+    </div>
+
+    <button type="submit" class="rsvp submit-btn">Ուղարկել</button>
+    <div id="formStatus" class="form-status"></div>
             </form>
 
             <span class="close-modal" onclick="closeRsvpModal()">ՓԱԿԵԼ</span>
@@ -983,6 +1023,44 @@
         }
 
         const rsvpForm = document.getElementById('rsvpForm');
+	const attendanceSelect = document.getElementById('attendance');
+	const conditionalFields = document.getElementById('conditionalFields');
+	const guestCount = document.getElementById('guestCount');
+	const guestSide = document.getElementById('guestSide');
+
+	function toggleConditionalFields() {
+	    const isComing = attendanceSelect.value === 'Կմասնակցեմ';
+
+	    conditionalFields.classList.toggle('show', isComing);
+
+	    guestCount.required = isComing;
+	    guestSide.required = isComing;
+
+	    if (!isComing) {
+	        guestCount.value = '';
+	        guestSide.value = '';
+	        guestCount.setCustomValidity('');
+	        guestSide.setCustomValidity('');
+	    }
+	}
+
+	attendanceSelect.addEventListener('change', toggleConditionalFields);
+
+	guestCount.addEventListener('invalid', function () {
+	    this.setCustomValidity('Խնդրում ենք լրացնել դաշտը');
+	});
+
+	guestCount.addEventListener('input', function () {
+	    this.setCustomValidity('');
+	});
+
+	guestSide.addEventListener('invalid', function () {
+	    this.setCustomValidity('Խնդրում ենք լրացնել դաշտը');
+	});
+
+	guestSide.addEventListener('change', function () {
+	    this.setCustomValidity('');
+	});
         const formStatus = document.getElementById('formStatus');
 
         rsvpForm.addEventListener('submit', async function (e) {
@@ -1026,6 +1104,7 @@
             }
         });
 
+	toggleConditionalFields();
         updateTimer();
         setInterval(updateTimer, 60000);
 
